@@ -1,9 +1,13 @@
 import React from "react";
 import TabItem from "./TabItem";
+import styled from "styled-components";
 
 function Tabs({ tabs }) {
+	const StyledTabs = styled.ul`
+		height: 24px;
+	`;
 	return (
-		<ul>
+		<StyledTabs>
 			{tabs.map((tab) => {
 				return (
 					<TabItem
@@ -13,7 +17,7 @@ function Tabs({ tabs }) {
 					></TabItem>
 				);
 			})}
-		</ul>
+		</StyledTabs>
 	);
 }
 

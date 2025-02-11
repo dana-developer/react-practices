@@ -1,5 +1,5 @@
 import React from "react";
-import "./assets/css/styles.css";
+import "./assets/scss/App.scss";
 import data from "./assets/json/data";
 import TabBox from "./TabBox";
 
