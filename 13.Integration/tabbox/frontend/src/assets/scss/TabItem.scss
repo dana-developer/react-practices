@@ -1,24 +1,43 @@
 @charset "utf-8";
 
-.tab-box {
-	ul {
-		li {
-			float: right;
-			border: 1px solid #999;
-			border-radius: 10px 10px 0 0;
-			width: 100px;
-			height: 22px;
-			margin-right: 2px;
+// .tab-box {
+// 	ul {
+// 		li {
+// 			float: right;
+// 			border: 1px solid #999;
+// 			border-radius: 10px 10px 0 0;
+// 			width: 100px;
+// 			height: 22px;
+// 			margin-right: 2px;
 
-			text-align: center;
-			line-height: 22px;
+// 			text-align: center;
+// 			line-height: 22px;
 
-			background-color: #ccc;
-			cursor: pointer;
-		}
+// 			background-color: #ccc;
+// 			cursor: pointer;
 
-		li.active {
-			background-color: #fc6;
-		}
+// 			&:active {
+// 				background-color: #fc6;
+// 			}
+// 		}
+// 	}
+// }
+
+.Tab_Item {
+	float: right;
+	border: 1px solid #999;
+	border-radius: 10px 10px 0 0;
+	width: 100px;
+	height: 22px;
+	margin-right: 2px;
+
+	text-align: center;
+	line-height: 22px;
+
+	background-color: #ccc;
+	cursor: pointer;
+
+	&.active {
+		background-color: #fc6;
 	}
 }
