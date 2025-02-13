@@ -10,6 +10,7 @@ function TabBox(props) {
 		margin: 100px auto;
 	`;
 
+	// TabBox (TabItem, Tabs, TabView의 부모인 컴포넌트)가 data를 가지고 있으므로 active를 변경할 수 있다.
 	const [tabs, setTabs] = useState(data);
 	const [selectedTab, setSelectedTab] = useState(data[0].no);
 
@@ -27,7 +28,7 @@ function TabBox(props) {
 		<StyledTabBox className="tab-box">
 			<Tabs
 				tabs={tabs}
-				handleTabSelect={handleTabSelect}
+				handleTabSelect={handleTabSelect} // bottom -> up으로 진행하기 위해
 			></Tabs>
 			<TabView
 				selectedTab={tabs.find(
