@@ -2,7 +2,7 @@ import React from "react";
 import TabItem from "./TabItem";
 import styled from "styled-components";
 
-function Tabs({ tabs }) {
+function Tabs({ tabs, handleTabSelect }) {
 	const StyledTabs = styled.ul`
 		height: 24px;
 	`;
@@ -14,6 +14,10 @@ function Tabs({ tabs }) {
 						key={tab.no}
 						name={tab.name}
 						active={tab.active}
+						index={tab.no}
+						handleTabSelect={
+							handleTabSelect
+						}
 					></TabItem>
 				);
 			})}
