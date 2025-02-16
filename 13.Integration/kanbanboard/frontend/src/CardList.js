@@ -1,9 +1,8 @@
 import React from "react";
 import { Card_List } from "./assets/scss/CardList.scss";
 import Card from "./Card";
-import data from "./assets/json/data.js";
 
-function CardList({ status }) {
+function CardList({ status, data }) {
 	const filterData = data.filter((e) => e.status === status);
 
 	return (

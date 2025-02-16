@@ -10,6 +10,7 @@
 	border-radius: 3px;
 	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
+
 .Card_Title {
 	font-weight: bold;
 	border-bottom: solid 5px transparent;
@@ -19,6 +20,13 @@
 		content: "▸";
 	}
 }
-.Card_Title_Open:before {
-	content: "▾";
+
+.Card_Title_Open {
+	font-weight: bold;
+	border-bottom: solid 5px transparent;
+	&:before {
+		display: inline-block;
+		width: 1em;
+		content: "▾";
+	}
 }

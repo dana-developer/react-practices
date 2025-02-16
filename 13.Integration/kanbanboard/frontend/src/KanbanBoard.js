@@ -2,6 +2,7 @@ import React from "react";
 import "./assets/scss/KanbanBoard.scss";
 import CardList from "./CardList";
 import styled from "styled-components";
+import data from "./assets/json/data.js";
 
 const StyledKanbanBoard = styled.div`
 	white-space: nowrap;
@@ -10,13 +11,19 @@ const StyledKanbanBoard = styled.div`
 `;
 
 function KanbanBoard() {
+	const statusList = ["ToDo", "Doing", "Done"];
+
 	return (
 		<>
 			<h4>Kanbanboard 과제</h4>
 			<StyledKanbanBoard>
-				<CardList status={"ToDo"}></CardList>
-				<CardList status={"Doing"}></CardList>
-				<CardList status={"Done"}></CardList>
+				{statusList.map((status, index) => (
+					<CardList
+						status={status}
+						data={data}
+						key={index}
+					></CardList>
+				))}
 			</StyledKanbanBoard>
 		</>
 	);
