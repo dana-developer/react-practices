@@ -22,13 +22,6 @@ function App() {
 	const refCreateForm = useRef(null); // 아이템 추가 후 폼을 비우기 위해서
 	const [items, setItems] = useState(null);
 
-	// const [modalOpen, setModalOpen] = useState(false);
-	// const [updateItem, setUpdateItem] = useState({
-	// 	type: "",
-	// 	name: "",
-	// });
-	// 아래에 위의 코드를 한 개의 객체로 표현
-
 	const [modalData, setModalData] = useState({
 		modalOpen: false,
 		itemType: "",
@@ -63,7 +56,6 @@ function App() {
 
 			const jsonResult = await response.json();
 
-			// http 통신 에러 || http status가 ok이지만 fail인 경우
 			if (!response.ok || jsonResult.result === "fail") {
 				throw new Error(
 					`${response.status} ${jsonResult.message}`
@@ -90,7 +82,6 @@ function App() {
 
 			const jsonResult = await response.json();
 
-			// http 통신 에러 || http status가 ok이지만 fail인 경우
 			if (!response.ok || jsonResult.result === "fail") {
 				throw new Error(
 					`${response.status} ${jsonResult.message}`
@@ -107,9 +98,6 @@ function App() {
 		try {
 			const response = await axios.get(`/item/${id}`);
 			const jsonResult = response.data;
-
-			// setModalOpen(!modalOpen);
-			// setUpdateItem(jsonResult.data);
 
 			setModalData(
 				update(modalData, {
@@ -134,7 +122,6 @@ function App() {
 	};
 
 	useEffect(() => {
-		// 마운트될 때 함수를 호출한다.
 		fetchItems();
 	}, []);
 
@@ -149,62 +136,6 @@ function App() {
 						e.preventDefault();
 
 						try {
-							// const item = Array.from(
-							// 	e.target,
-							// 	(el) => {
-							// 		if (
-							// 			el.name !==
-							// 				"" &&
-							// 			el.value ===
-							// 				""
-							// 		) {
-							// 			throw new Error(
-							// 				`validation ${el.name} is empty`
-							// 			);
-							// 		}
-
-							// 		return {
-							// 			name: el.name,
-							// 			value: el.value,
-							// 		};
-							// 	}
-							// )
-							// 	.filter(
-							// 		({
-							// 			name,
-							// 		}) =>
-							// 			name !==
-							// 			""
-							// 	)
-							// 	.forEach(
-							// 		(o) => {
-							// 			console.log(
-							// 				o
-							// 			);
-							// 		}
-							// 	)
-							// 	.reduce(
-							// 		(
-							// 			res,
-							// 			{
-							// 				name,
-							// 				value,
-							// 			}
-							// 		) => {
-							// 			res[
-							// 				name
-							// 			] =
-							// 				value;
-							// 			return res;
-							// 		},
-							// 		{}
-							// 	); // { } : res 초기화
-
-							// const queryString =
-							// 	serialize(
-							// 		e.target
-							// 	);
-
 							const item = serialize(
 								e.target,
 								{ hash: true }
