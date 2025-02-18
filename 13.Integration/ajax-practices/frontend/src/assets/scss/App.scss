@@ -1,127 +1,129 @@
 @charset "utf-8";
 html {
-    * {
-        margin: 0;
-        padding: 0;
-    }
+	* {
+		margin: 0;
+		padding: 0;
+	}
 
-    ul, ol, dl {
-        list-style-type: none;
-    }
+	ul,
+	ol,
+	dl {
+		list-style-type: none;
+	}
 
-    body {
-        font-family: 'Space Mono', monospace;
-        font-size: 0.75em;
+	body {
+		font-family: "Space Mono", monospace;
+		font-size: 0.75em;
 
-        :global(#root) {
-            width: 100%;
-            padding: 10px;
+		:global(#root) {
+			width: 100%;
+			padding: 10px;
 
-            :global(#App) {
-                width: 100%;
+			:global(#App) {
+				width: 100%;
 
-                h2 {
-                    margin: 20px 0 10px 0;
-                    cursor: pointer;
-                }
+				h2 {
+					margin: 20px 0 10px 0;
+					cursor: pointer;
+				}
 
-                div{
-                    display: flex;
-                    flex-direction: row;
+				div {
+					display: flex;
+					flex-direction: row;
 
-                    form {
-                        margin: 10px 10px 10px 0;
-                        border: 1px solid #aaa;
-                        width: 230px;
-                        padding: 10px;
+					form {
+						margin: 10px 10px 10px 0;
+						border: 1px solid #aaa;
+						width: 260px;
+						padding: 10px;
 
-                        input[type='file'] {
-                            display: block;
-                            margin: 10px 0 0 0;
-                            padding: 3px 5px;
-                        }
+						input[type="file"] {
+							display: block;
+							margin: 10px 0 0 0;
+							padding: 3px 5px;
+						}
 
-                        input[type='submit'] {
-                            display: block;
-                            margin: 10px 0 0 0;
-                            padding: 3px 5px;
-                        }
-                    }
-                }
+						input[type="submit"] {
+							display: block;
+							margin: 10px 0 0 0;
+							padding: 3px 5px;
+						}
+					}
+				}
 
-                ul {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-	                align-content: stretch;
+				ul {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					align-content: stretch;
 
-                    li {
-                        display: flex;
-                        flex-direction: row-reverse;
-                        justify-content: flex-end;
+					li {
+						display: flex;
+						flex-direction: row-reverse;
+						justify-content: flex-end;
 
-                        width: 180px;
-                        margin-bottom: 5px;
-                        margin-right: 5px;
-                        border: 1px solid #ccc;
-                        
-                        h4 {  
-                            flex-grow: 0;
-                            padding: 5px;
+						width: 180px;
+						margin-bottom: 5px;
+						margin-right: 5px;
+						border: 1px solid #ccc;
 
-                            b {
-                                display: block;
-                                width: fit-content;
-                                block-size: fit-content;
-                                cursor: pointer;
-                            }
+						h4 {
+							flex-grow: 0;
+							padding: 5px;
 
-                            button {
-                                display: block;
-                                margin-top: 5px;
-                                padding: 3px 5px;
-                                font-size: 0.5em;
-                            }
-                        }
+							b {
+								display: block;
+								width: fit-content;
+								block-size: fit-content;
+								cursor: pointer;
+							}
 
-                        div {
-                            display: flex;
-                            flex-direction: column;
-                            flex-grow: 0;
-                            
-                            min-width: 60px;
-                            
-                            padding: 5px;
+							button {
+								display: block;
+								margin-top: 5px;
+								padding: 3px 5px;
+								font-size: 0.5em;
+							}
+						}
 
-                            span {
-                                display: block;
+						div {
+							display: flex;
+							flex-direction: column;
+							flex-grow: 0;
 
-                                b {
-                                    &:before {
-                                        content: '[';
-                                    }
+							min-width: 60px;
 
-                                    &:after {
-                                        content: ']';
-                                    }
-                                }
-                                
-                                i {
-                                    text-align: left;
-                                }
-                            }
+							padding: 5px;
 
-                            img {       
-                                display:  block;
-                                margin-top: 5px;;
+							span {
+								display: block;
 
-                                height: 50px;
-                                width: 50px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    } 
+								b {
+									&:before {
+										content: "[";
+									}
+
+									&:after {
+										content: "]";
+									}
+								}
+
+								i {
+									text-align: left;
+								}
+							}
+
+							img {
+								display: block;
+								margin-top: 5px;
+
+								height: 50px;
+								width: 50px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -40,7 +40,7 @@ module.exports = function (env) {
 				},
 			],
 		},
-		devtool: "eval-source-map",
+		devtool: "eval-source-map", // 현재 작성한 코드의 어디에서 에러가 발생한지 알려줌(변환된 코드의 위치X)
 		devServer: {
 			host: "0.0.0.0",
 			port: 9090,
