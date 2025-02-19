@@ -23,7 +23,8 @@ function App() {
 	const [items, setItems] = useState(null);
 
 	const [modalData, setModalData] = useState({
-		modalOpen: false,
+		open: false,
+		itemId: 0,
 		itemType: "",
 		itemName: "",
 	});
@@ -34,6 +35,38 @@ function App() {
 			const jsonResult = response.data;
 
 			setItems(items.filter((e) => e.id != jsonResult.data));
+		} catch (err) {
+			console.error(
+				err.response
+					? `${err.response.status} ${err.response.data.message}`
+					: err
+			);
+		}
+	};
+
+	const addItemWithImage = async (item) => {
+		try {
+			// const formData = new FormData();
+			// formData.append("name", item.name);
+
+			const formData = Object.keys(item).reduce(
+				(formData, key) => {
+					formData.append(key, item[key]);
+					return formData;
+				},
+				new FormData()
+			);
+
+			const response = await axios.post("/item", formData, {
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "multipart/form-data",
+				},
+			});
+
+			const jsonResult = response.data;
+
+			setItems([jsonResult.data, ...items]);
 		} catch (err) {
 			console.error(
 				err.response
@@ -110,6 +143,60 @@ function App() {
 					itemName: {
 						$set: jsonResult.data.name,
 					},
+					itemId: {
+						$set: id,
+					},
+				})
+			);
+		} catch (err) {
+			console.error(
+				err.response
+					? `${err.response.status} ${err.response.data.message}`
+					: err
+			);
+		}
+	};
+
+	const updateItem = async (id, item) => {
+		try {
+			const response = await axios.put(
+				`/item/${id}`,
+				new URLSearchParams(item).toString(),
+				{
+					headers: {
+						Accept: "application/json",
+						"Content-Type":
+							"application/x-www-form-urlencoded",
+					},
+				}
+			);
+
+			const jsonResult = response.data;
+			// console.log("updateItem : ==== " + jsonResult);
+			const index = items.findIndex(
+				(item) => item.id === jsonResult.data.id
+			);
+
+			setItems([
+				...items.slice(0, index),
+				jsonResult.data,
+				...items.slice(index + 1),
+			]);
+
+			setModalData(
+				update(modalData, {
+					open: {
+						$set: false,
+					},
+					itemId: {
+						$set: 0,
+					},
+					itemType: {
+						$set: "",
+					},
+					itemName: {
+						$set: "",
+					},
 				})
 			);
 		} catch (err) {
@@ -166,7 +253,34 @@ function App() {
 						value={"[C]reate (post)"}
 					/>
 				</form>
-				<form>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						Array.from(e.target, (el) => {
+							if (
+								el.name !==
+									"" &&
+								el.value === ""
+							) {
+								throw new Error(
+									`validation ${el.name} is Empty`
+								);
+							}
+						});
+
+						const item = serialize(
+							e.target,
+							{ hash: true }
+						);
+
+						item["file"] =
+							e.target[
+								"file"
+							].files[0];
+
+						addItemWithImage(item);
+					}}
+				>
 					<select name={"type"}>
 						<option>BOOK</option>
 						<option>CLOTHE</option>
@@ -265,7 +379,20 @@ function App() {
 				style={{ content: { width: 280 } }}
 			>
 				<h3>Update Item</h3>
-				<form onChange={(e) => {}}>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+
+						const item = serialize(
+							e.target,
+							{ hash: true }
+						);
+						updateItem(
+							modalData.itemId,
+							item
+						);
+					}}
+				>
 					<label>TYPE</label>{" "}
 					<select
 						name={"type"}

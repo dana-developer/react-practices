@@ -20,5 +20,9 @@ public class Item {
 	private String name;
 
 	private String image;
+	
+	public Item(Long id) {
+		this.id = id;
+	}
 
 }
