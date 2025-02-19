@@ -1,11 +1,23 @@
 import React from "react";
 import Task from "./Task";
-import { Task_List, Input_Add_Task } from "./assets/scss/TaskList.scss";
+import styled from "styled-components";
+
+const StyledTaskList = styled.ul`
+	list-style-type: none;
+`;
+
+const StyledInputAddTask = styled.input`
+	border: 1px dashed #bbb;
+	width: 100%;
+	padding: 10px;
+	margin-top: 5px;
+	border-radius: 3px;
+`;
 
 function TaskList({ tasks, setContents }) {
 	return (
-		<div className={Task_List}>
-			<ul>
+		<div>
+			<StyledTaskList>
 				{tasks.map((task, i) => (
 					<Task
 						key={i}
@@ -15,9 +27,9 @@ function TaskList({ tasks, setContents }) {
 						index={i}
 					></Task>
 				))}
-			</ul>
-			<input
-				className={Input_Add_Task}
+			</StyledTaskList>
+
+			<StyledInputAddTask
 				type="text"
 				placeholder="태스크 추가"
 				onKeyDown={(e) => {
