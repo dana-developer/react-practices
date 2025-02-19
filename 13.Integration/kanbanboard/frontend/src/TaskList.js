@@ -41,14 +41,13 @@ function TaskList({ tasks, setTasks, cardNo }) {
 	return (
 		<div>
 			<StyledTaskList>
-				{tasks.map((task, i) => (
+				{tasks.map((task) => (
 					<Task
-						key={i}
+						key={task.no}
 						name={task.name}
 						done={task.done}
 						setTasks={setTasks}
 						tasks={tasks}
-						index={i}
 						no={task.no}
 					></Task>
 				))}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,5 +66,14 @@ public class ApiController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(taskRepository.updateDone(no, done) ? new UpdateTaskDoneRes(no, done): null));
+	}
+	
+	@DeleteMapping("/task/{no}")
+	public ResponseEntity<JsonResult<Long>> deleteTask(@PathVariable Long no) {
+		log.info("Request[DELETE /kanbanboard/task] []", no);
+
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(taskRepository.delete(no) ? no : -1));
 	}
 }

@@ -70,13 +70,13 @@ function Card({ title, description, no }) {
 				<div>{description}</div>
 			</div>
 
-			{titleOpen ? (
+			{titleOpen && (
 				<TaskList
 					tasks={tasks}
 					setTasks={setTasks}
 					cardNo={no}
 				></TaskList>
-			) : null}
+			)}
 		</StyledCard>
 	);
 }

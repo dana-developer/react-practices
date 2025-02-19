@@ -3,7 +3,7 @@ import { _Task, Task_Remove } from "./assets/scss/Task.scss";
 import axios from "axios";
 import update from "react-addons-update";
 
-function Task({ index, name, no, done, tasks, setTasks }) {
+function Task({ name, no, done, tasks, setTasks }) {
 	const updateTaskDone = async (no, done) => {
 		try {
 			const response = await axios.put(
@@ -35,6 +35,24 @@ function Task({ index, name, no, done, tasks, setTasks }) {
 			);
 		}
 	};
+
+	const deleteTask = async (no) => {
+		try {
+			const response = await axios.delete(
+				`/kanbanboard/task/${no}`
+			);
+			const jsonResult = response.data;
+
+			setTasks(tasks.filter((e) => e.no != jsonResult.data));
+		} catch (err) {
+			console.error(
+				err.response
+					? `${err.response.status} ${err.response.data.message}`
+					: err
+			);
+		}
+	};
+
 	return (
 		<li className={_Task}>
 			<input
@@ -50,12 +68,7 @@ function Task({ index, name, no, done, tasks, setTasks }) {
 				href="#"
 				className={Task_Remove}
 				onClick={() => {
-					setTasks((prevContents) =>
-						prevContents.filter(
-							(_, idx) =>
-								idx !== index
-						)
-					);
+					deleteTask(no);
 				}}
 			></a>
 		</li>

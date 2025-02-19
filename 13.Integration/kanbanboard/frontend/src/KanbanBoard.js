@@ -36,7 +36,6 @@ function KanbanBoard() {
 
 	return (
 		<>
-			<h4>Kanbanboard 과제</h4>
 			<StyledKanbanBoard>
 				{statusList?.map((status, index) => (
 					<CardList
