@@ -74,6 +74,7 @@ function Card({ title, description, no }) {
 				<TaskList
 					tasks={tasks}
 					setTasks={setTasks}
+					cardNo={no}
 				></TaskList>
 			) : null}
 		</StyledCard>

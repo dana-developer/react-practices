@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import Task from "./Task";
 import styled from "styled-components";
+import axios from "axios";
 
 const StyledTaskList = styled.ul`
 	list-style-type: none;
@@ -14,7 +15,29 @@ const StyledInputAddTask = styled.input`
 	border-radius: 3px;
 `;
 
-function TaskList({ tasks, setTasks }) {
+function TaskList({ tasks, setTasks, cardNo }) {
+	const addTaskRef = useRef(null);
+
+	const addTask = async (task) => {
+		try {
+			const response = await axios.post(
+				"/kanbanboard/task",
+				task
+			);
+
+			const jsonResult = response.data;
+
+			setTasks([jsonResult.data, ...tasks]);
+
+			addTaskRef.current.value = "";
+		} catch (err) {
+			console.error(
+				err.response
+					? `${err.response.status} ${err.response.data.message}`
+					: err
+			);
+		}
+	};
 	return (
 		<div>
 			<StyledTaskList>
@@ -32,24 +55,17 @@ function TaskList({ tasks, setTasks }) {
 			<StyledInputAddTask
 				type="text"
 				placeholder="태스크 추가"
+				ref={addTaskRef}
 				onKeyDown={(e) => {
 					if (e.key === "Enter") {
-						console.log(
-							"테스크 추가합니다." +
-								e.target.value
-						);
+						const task = {
+							name: e.target.value,
+							done: "N",
+							no: null,
+							cardNo: cardNo,
+						};
 
-						setContents((contents) => [
-							...contents,
-							{
-								name: e.target
-									.value,
-								done: false,
-								no:
-									contents.length +
-									1,
-							},
-						]);
+						addTask(task);
 					}
 				}}
 			/>
