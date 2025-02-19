@@ -1,25 +1,48 @@
 import React from "react";
 import { _Task, Task_Remove } from "./assets/scss/Task.scss";
+import axios from "axios";
+import update from "react-addons-update";
 
-function Task({ index, name, done, setTasks }) {
+function Task({ index, name, no, done, tasks, setTasks }) {
+	const updateTaskDone = async (no, done) => {
+		try {
+			const response = await axios.put(
+				`/kanbanboard/task/${no}?done=${done}`
+			);
+			const jsonResult = response.data;
+
+			const index = tasks.findIndex(
+				(task) => task.no === jsonResult.data.no
+			);
+
+			setTasks([
+				...tasks.slice(0, index),
+				update(tasks[index], {
+					no: {
+						$set: jsonResult.data.no,
+					},
+					done: {
+						$set: jsonResult.data.done,
+					},
+				}),
+				...tasks.slice(index + 1),
+			]);
+		} catch (err) {
+			console.error(
+				err.response
+					? `${err.response.status} ${err.response.data.message}`
+					: err
+			);
+		}
+	};
 	return (
 		<li className={_Task}>
 			<input
-				index={index}
 				type="checkbox"
 				checked={done === "Y"}
 				onClick={() => {
-					setTasks((prevContents) =>
-						prevContents.map(
-							(content, idx) =>
-								idx === index
-									? {
-											...content,
-											done: !content.done,
-									  } // index와 일치할 때 done 토글
-									: content // 아닐 때는 기존 content 유지
-						)
-					);
+					const isDone = done === "Y" ? "N" : "Y";
+					updateTaskDone(no, isDone);
 				}}
 			/>
 			{" " + name + " "}

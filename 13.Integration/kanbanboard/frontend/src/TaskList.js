@@ -47,7 +47,9 @@ function TaskList({ tasks, setTasks, cardNo }) {
 						name={task.name}
 						done={task.done}
 						setTasks={setTasks}
+						tasks={tasks}
 						index={i}
+						no={task.no}
 					></Task>
 				))}
 			</StyledTaskList>

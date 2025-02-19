@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kanbanboard.domain.Card;
 import kanbanboard.domain.Task;
 import kanbanboard.dto.JsonResult;
+import kanbanboard.dto.UpdateTaskDoneRes;
 import kanbanboard.repository.CardRepository;
 import kanbanboard.repository.TaskRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -54,5 +57,13 @@ public class ApiController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(task));
+	}
+	
+	@PutMapping("/task/{no}")
+	public ResponseEntity<JsonResult<UpdateTaskDoneRes>> updateTaskDone(@PathVariable Long no, String done) {
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(taskRepository.updateDone(no, done) ? new UpdateTaskDoneRes(no, done): null));
 	}
 }
