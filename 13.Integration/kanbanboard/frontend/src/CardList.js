@@ -8,12 +8,12 @@ function CardList({ status, data }) {
 	return (
 		<div className={Card_List}>
 			<h1>{status}</h1>
-			{filterData.map((e) => (
+			{filterData?.map((e) => (
 				<Card
 					key={e.no}
 					title={e.title}
 					description={e.description}
-					tasks={e.tasks}
+					no={e.no}
 				></Card>
 			))}
 		</div>

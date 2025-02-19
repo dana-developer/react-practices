@@ -14,7 +14,7 @@ const StyledInputAddTask = styled.input`
 	border-radius: 3px;
 `;
 
-function TaskList({ tasks, setContents }) {
+function TaskList({ tasks, setTasks }) {
 	return (
 		<div>
 			<StyledTaskList>
@@ -23,7 +23,7 @@ function TaskList({ tasks, setContents }) {
 						key={i}
 						name={task.name}
 						done={task.done}
-						setContents={setContents}
+						setTasks={setTasks}
 						index={i}
 					></Task>
 				))}

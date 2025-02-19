@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TaskList from "./TaskList";
 import styled from "styled-components";
+import axios from "axios";
 
 const StyledCard = styled.div`
 	position: relative;
@@ -25,15 +26,42 @@ const StyledCardTitle = styled.div`
 	}
 `;
 
-function Card({ title, description, tasks }) {
-	const [contents, setContents] = useState(tasks);
+function Card({ title, description, no }) {
+	const [tasks, setTasks] = useState([]);
 	const [titleOpen, setTitleOpen] = useState(false);
+
+	const fetchTasks = async (cardNo) => {
+		try {
+			const response = await axios.get(
+				`/kanbanboard/task?cardNo=${cardNo}`
+			);
+
+			const jsonResult = response.data;
+
+			setTasks(jsonResult.data);
+
+			setTitleOpen((titleOpen) => !titleOpen);
+		} catch (err) {
+			console.error(
+				err.response
+					? `${err.response.status} ${err.response.data.message}`
+					: err
+			);
+		}
+	};
 
 	return (
 		<StyledCard>
 			<div
 				onClick={() => {
-					setTitleOpen((titleOpen) => !titleOpen);
+					if (titleOpen === false) {
+						fetchTasks(no);
+					} else {
+						setTitleOpen(
+							(titleOpen) =>
+								!titleOpen
+						);
+					}
 				}}
 			>
 				<StyledCardTitle isOpen={titleOpen}>
@@ -42,12 +70,12 @@ function Card({ title, description, tasks }) {
 				<div>{description}</div>
 			</div>
 
-			{titleOpen ? null : (
+			{titleOpen ? (
 				<TaskList
-					tasks={contents}
-					setContents={setContents}
+					tasks={tasks}
+					setTasks={setTasks}
 				></TaskList>
-			)}
+			) : null}
 		</StyledCard>
 	);
 }

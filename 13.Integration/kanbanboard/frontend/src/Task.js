@@ -1,15 +1,15 @@
 import React from "react";
 import { _Task, Task_Remove } from "./assets/scss/Task.scss";
 
-function Task({ index, name, done, setContents }) {
+function Task({ index, name, done, setTasks }) {
 	return (
 		<li className={_Task}>
 			<input
 				index={index}
 				type="checkbox"
-				checked={done}
+				checked={done === "Y"}
 				onClick={() => {
-					setContents((prevContents) =>
+					setTasks((prevContents) =>
 						prevContents.map(
 							(content, idx) =>
 								idx === index
@@ -27,7 +27,7 @@ function Task({ index, name, done, setContents }) {
 				href="#"
 				className={Task_Remove}
 				onClick={() => {
-					setContents((prevContents) =>
+					setTasks((prevContents) =>
 						prevContents.filter(
 							(_, idx) =>
 								idx !== index
