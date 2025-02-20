@@ -1,7 +1,16 @@
 import React from "react";
-import { _Task, Task_Remove } from "./assets/scss/Task.scss";
+import { Task_Remove } from "./assets/scss/Task.scss";
 import axios from "axios";
 import update from "react-addons-update";
+import styled from "styled-components";
+
+const StyledTask = styled.li`
+	&:first-child {
+		margin-top: 10px;
+		padding-top: 10px;
+		border-top: dashed 1px #ddd;
+	}
+`;
 
 function Task({ name, no, done, tasks, setTasks }) {
 	const updateTaskDone = async (no, done) => {
@@ -43,7 +52,7 @@ function Task({ name, no, done, tasks, setTasks }) {
 			);
 			const jsonResult = response.data;
 
-			setTasks(tasks.filter((e) => e.no != jsonResult.data));
+			setTasks(tasks.filter((e) => e.no !== jsonResult.data));
 		} catch (err) {
 			console.error(
 				err.response
@@ -54,11 +63,11 @@ function Task({ name, no, done, tasks, setTasks }) {
 	};
 
 	return (
-		<li className={_Task}>
+		<StyledTask>
 			<input
 				type="checkbox"
 				checked={done === "Y"}
-				onClick={() => {
+				onChange={() => {
 					const isDone = done === "Y" ? "N" : "Y";
 					updateTaskDone(no, isDone);
 				}}
@@ -71,7 +80,7 @@ function Task({ name, no, done, tasks, setTasks }) {
 					deleteTask(no);
 				}}
 			></a>
-		</li>
+		</StyledTask>
 	);
 }
 
