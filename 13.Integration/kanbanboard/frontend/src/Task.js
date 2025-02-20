@@ -1,5 +1,4 @@
 import React from "react";
-import { Task_Remove } from "./assets/scss/Task.scss";
 import axios from "axios";
 import update from "react-addons-update";
 import styled from "styled-components";
@@ -9,6 +8,14 @@ const StyledTask = styled.li`
 		margin-top: 10px;
 		padding-top: 10px;
 		border-top: dashed 1px #ddd;
+	}
+`;
+
+const StyledTaskRemove = styled.a`
+	&:after {
+		display: inline-block;
+		color: #d66;
+		content: "✖";
 	}
 `;
 
@@ -73,13 +80,12 @@ function Task({ name, no, done, tasks, setTasks }) {
 				}}
 			/>
 			{" " + name + " "}
-			<a
+			<StyledTaskRemove
 				href="#"
-				className={Task_Remove}
 				onClick={() => {
 					deleteTask(no);
 				}}
-			></a>
+			></StyledTaskRemove>
 		</StyledTask>
 	);
 }
